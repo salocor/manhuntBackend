@@ -1,7 +1,7 @@
 import json
 from flask import Flask, jsonify, request
 import requests as rq
-backend = Flask(__name__)
+app = Flask(__name__)
 
 data = { };
 data["location"] = {
@@ -9,7 +9,7 @@ data["location"] = {
         "longitude": -1
         }
 
-@backend.route('/location', methods=['GET'])
+@app.route('/location', methods=['GET'])
 def putLocation():
     data["location"] = {
         "latitude": request.args.get("lat"),
@@ -17,11 +17,11 @@ def putLocation():
         }
     print("hiderLat: " + str(hiderLat) + " hiderLong: " + str(hiderLong))
 
-@backend.route('/getLocation', methods=['GET'])
+@app.route('/getLocation', methods=['GET'])
 def getLocation():
     return jsonify(data);
 
-backend.run(host = '0.0.0.0', ssl_context='adhoc')
+app.run(host = '0.0.0.0', ssl_context='adhoc')
 
 
 #url scheme: http://localhost:5000/location?lat=10&long=9
